@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>carrom</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="styles.css">
+
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jacksonkoh8/AR.js@99bda004452549e8a7576b9e7afc26992aa0104e/aframe/build/aframe-ar.js"></script>
+    <script src="gesture-detector.js"></script>
+    <script src="gesture-handler.js"></script>
+    <script src="aframe-extras.loaders.min.js"></script>
+    <script src="sky.js"></script>
+    
+    <script>
+      window.onload = function () {
+        alert("Android users experiencing extreme camera zoom should go to browser setting, accessibility/display/appearance, turn off force enable zoom/manual zoom/control zoom\n\nClick on X on the top right hand to partially hide background\n\nPress the different buttons to show/hide the features in sequence from left to right.");
+      };
+    </script>
+  </head>
+
+  <body> 
+  <div id="skybtn">
+    <button 
+    class="skybtn" 
+    id="skybtn"
+    onclick="skyCTRL()"
+    >X</button>
+
+  <!-- edit message to be shown when description button is pressed
+  use "\n" without quotes to create new paragraph
+  don't remove the quotes without the brackets of alert -->
+  <script>
+    function description_text() {
+      alert("What is almost equivalent to the foosball at Hodge Lodge during 1984-2004? Ex-student councillor Ms Ng Mei Sze says: Carrom boards! \nAt the Mount Sinai campus, carrom boards are rented out by the student council to make school life more lively and fun for everyone.\n\nEvery councillor had to know how to play, and if you came late in the renting queue, no carrom for the entire day!");
+    }
+  </script>
+  <!-- edit message to be shown when description button is pressed
+  use "\n" without quotes to create new paragraph 
+  don't remove the quotes without the brackets of alert -->
+  <script>
+    function next_location_text() {
+      alert("The next location is outside LT2");
+    }
+  </script>
+
+  </div>
+    <div id="bottomButtons">
+      <!-- change the word just before </button> to change text appearing on button, don't change id-->
+      <button class="button" id="Description" onClick="description_text()">Description</button>
+      <button class="button" id="NextLocation" onClick="next_location_text()">Next Location</button>
+      <!-- go to styles.css if you want to change the style of the button like colour and width etc -->
+    </div> 
+    
+    <a-scene
+      arjs="sourceWidth: 1024; sourceHeight: 776; displayWidth: 1024; displayHeight: 776;"
+      embedded
+      renderer="logarithmicDepthBuffer: true;"
+      vr-mode-ui="enabled: false"
+      gesture-detector
+      loading-screen="enabled: false"
+      gltf-model="dracoDecoderPath: https://www.gstatic.com/draco/v1/decoders/"
+      id="scene"
+    >
+      <a-assets>
+        <a-asset-item id="Carrom 14_2 V2 (drkoh edited)-gltf" src="Carrom 14_2 V2 (drkoh edited).glb"></a-asset-item>
+      </a-assets>
+
+      <a-marker
+        preset="hiro"
+        raycaster="objects: .clickable"
+        emitevents="true"
+        cursor="fuse: false; rayOrigin: mouse;"
+        id="markerA"
+        smooth="true"
+        smoothCount="50"
+        smoothTolerance="0.1"
+        smoothThreshold="1000"
+      >
+        
+        <a-sky 
+          id=sky
+          color="#C0C0C0"
+          opacity="0"
+        >
+        </a-sky>        
+        
+      <a-entity
+        id="Carrom 14_2 V2 (drkoh edited)-model"
+        gltf-model="#Carrom 14_2 V2 (drkoh edited)-gltf"
+        position="0 0 0"
+        rotation="0 0 0"
+        scale="10 10 10"
+        class="clickable"
+        gesture-handler
+        >
+      </a-entity>
+
+      </a-marker>
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
